@@ -1,0 +1,544 @@
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255,255,255,0.25), transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(255,255,255,0.2), transparent 40%);
+  filter: blur(30px);
+  z-index: -1;
+}
+
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding-top: 60px;
+  color: white;
+
+  background: linear-gradient(
+    -45deg,
+    #ff758c,
+    #ff7eb3,
+    #fad0c4,
+    #ff9a9e
+  );
+  background-size: 400% 400%;
+  animation: gradientMove 12s ease infinite;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+
+#musicBtn {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 14px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.heart {
+  font-size: 90px;
+  margin: 25px 0;
+  animation: beat 1.2s infinite;
+  text-shadow:
+    0 0 20px rgba(255,255,255,0.6),
+    0 0 40px rgba(255,120,150,0.8);
+}
+
+
+@keyframes beat {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.25); }
+  100% { transform: scale(1); }
+}
+
+.buttons {
+  position: relative;
+  width: 300px;
+  height: 120px;
+  margin: 30px auto;
+}
+
+#yesBtn {
+  position: absolute;
+  left: 0;
+  top: 40px;
+  padding: 14px 34px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+
+  background: linear-gradient(135deg, #ff416c, #ff4b2b);
+  color: white;
+  font-weight: bold;
+  font-size: 17px;
+
+  box-shadow:
+    0 0 20px rgba(255,65,108,0.8),
+    0 0 40px rgba(255,75,43,0.6);
+
+  animation: yesPulse 1.6s infinite;
+}
+
+@keyframes yesPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}
+
+
+#yesBtn:hover {
+  transform: scale(1.12);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.35);
+}
+
+#noBtn {
+  position: absolute;
+  left: 170px;
+  top: 40px;
+  width: 100px;
+  padding: 12px 0;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+
+  background: white;
+  color: #ff5e78;
+  font-weight: bold;
+
+  box-shadow: 0 8px 18px rgba(0,0,0,0.2);
+  transition: transform 0.1s ease;
+}
+
+
+/* Overlay */
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.65);
+  z-index: 999;
+  pointer-events: auto;      /* IMPORTANT */
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* Letter box must receive clicks */
+.overlay .box {
+  position: relative;
+  pointer-events: auto;
+  z-index: 1000;
+}
+
+/* ❌ Close button – absolute top layer */
+#closeLetter {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+
+/* Popup box */
+.box {
+  background: white;
+  color: black;
+  width: 320px;
+  padding: 20px;
+  border-radius: 15px;
+}
+
+.box iframe {
+  width: 100%;
+  height: 250px;
+  border-radius: 15px;
+  border: none;
+}
+
+.letter span {
+  float: right;
+  cursor: pointer;
+}
+
+#stillReading,
+#blushing {
+  display: none;
+  margin-top: 10px;
+  font-style: italic;
+}
+
+/* Ending */
+/* Ending screen – hidden by default */
+.ending {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(to right, #ff758c, #ff7eb3);
+  z-index: 1000;
+
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+
+#timer {
+  font-size: 18px;
+  animation: beat 1.2s infinite;
+}
+
+.mini {
+  margin-top: 10px;
+  font-style: italic;
+}
+
+
+.floating-hearts::before,
+.floating-hearts::after {
+  content: "💕       💘";
+  position: fixed;
+  width: 100%;
+  top: 100%;
+  left: 0;
+  font-size: 24px;
+  animation: floatUp 10s linear infinite;
+  opacity: 0.4;
+}
+
+.floating-hearts::after {
+  animation-delay: 5s;
+  opacity: 0.25;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-120vh); }
+}
+
+h1 {
+  font-size: 42px;
+  letter-spacing: 1px;
+  text-shadow: 0 10px 30px rgba(0,0,0,0.35);
+}
+
+p {
+  max-width: 420px;
+  margin: 12px auto;
+  line-height: 1.7;
+  opacity: 0.95;
+}
+
+
+.box {
+  animation: popIn 0.4s ease;
+}
+
+@keyframes popIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.ending h1 {
+  font-size: 42px;
+}
+
+.rain-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.heart-rain {
+  position: absolute;
+  top: -10%;
+  font-size: 22px;
+  opacity: 0.35;
+  animation: fall 10s linear infinite;
+}
+
+/* Spread across full width */
+.heart-rain:nth-child(1) { left: 5%; animation-delay: 0s; }
+.heart-rain:nth-child(2) { left: 20%; animation-delay: 2s; }
+.heart-rain:nth-child(3) { left: 40%; animation-delay: 4s; }
+.heart-rain:nth-child(4) { left: 60%; animation-delay: 1s; }
+.heart-rain:nth-child(5) { left: 80%; animation-delay: 3s; }
+.heart-rain:nth-child(6) { left: 95%; animation-delay: 5s; }
+
+@keyframes fall {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(120vh); }
+}
+
+
+
+.warning {
+  font-size: 14px;
+  opacity: 0.85;
+  margin-top: 10px;
+  font-style: italic;
+}
+
+/* ✨ Sparkles */
+#sparkles span {
+  position: fixed;
+  font-size: 18px;
+  pointer-events: none;
+  animation: sparkle 1s ease-out forwards;
+}
+
+@keyframes sparkle {
+  0% {
+    transform: scale(0) translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.2) translateY(-60px);
+    opacity: 0;
+  }
+}
+
+
+
+
+
+/* 🎬 Highlighted movie line (FORCED) */
+#favScene {
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  color: white;
+
+  box-shadow:
+    0 0 15px rgba(255,120,150,0.9),
+    0 0 30px rgba(255,120,150,0.6);
+
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+#highlight{
+font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  color: white;
+
+  box-shadow:
+    0 0 15px rgba(255,120,150,0.9),
+    0 0 30px rgba(255,120,150,0.6);
+
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 10px rgba(255,120,150,0.6); }
+  50% { box-shadow: 0 0 30px rgba(255,120,150,1); }
+  100% { box-shadow: 0 0 10px rgba(255,120,150,0.6); }
+}
+
+
+@keyframes sceneGlow {
+  0% {
+    box-shadow: 0 0 8px rgba(255,120,150,0.6);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(255,120,150,1);
+  }
+  100% {
+    box-shadow: 0 0 8px rgba(255,120,150,0.6);
+  }
+}
+
+
+/* ❌ Close button FIX */
+#closeLetter {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  font-size: 18px;
+  cursor: pointer;
+  z-index: 9999;       /* VERY IMPORTANT */
+}
+
+
+/* FORCE clicks to work */
+.overlay {
+  pointer-events: auto;
+}
+
+#letterBox {
+  position: relative;
+  z-index: 1002;
+  pointer-events: auto;
+}
+
+#closeLetter {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 1003;
+  pointer-events: auto;
+}
+
+p:first-of-type {
+  font-style: italic;
+  opacity: 0.95;
+}
+
+
+/* 🎬 Main Card – removes plain feeling */
+.card {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  border-radius: 28px;
+  padding: 40px 30px;
+  width: 90%;
+  max-width: 420px;
+
+  margin: 40px auto;
+  box-shadow:
+    0 20px 50px rgba(0,0,0,0.25),
+    inset 0 0 0 1px rgba(255,255,255,0.15);
+}
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,0.18), transparent 45%),
+    radial-gradient(circle at 70% 70%, rgba(255,255,255,0.15), transparent 45%);
+  pointer-events: none;
+}
+
+/* 🎬 HERO MOMENT */
+.hero {
+  position: relative;
+  margin: 30px 0;
+}
+
+.hero-heart {
+  font-size: 100px;
+  animation: heroBeat 1.3s infinite;
+  text-shadow:
+    0 0 20px rgba(255,255,255,0.6),
+    0 0 40px rgba(255,120,150,0.8);
+}
+
+@keyframes heroBeat {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.25); }
+  100% { transform: scale(1); }
+}
+
+.ring {
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 40px;
+  animation: floatRing 3s ease-in-out infinite;
+}
+
+@keyframes floatRing {
+  0% { transform: translate(-50%, 0); }
+  50% { transform: translate(-50%, -10px); }
+  100% { transform: translate(-50%, 0); }
+}
+
+
+/* 🎬 Cinematic entrance */
+.card {
+  animation: reveal 1.4s ease forwards;
+  opacity: 0;
+  transform: translateY(40px) scale(0.96);
+}
+
+@keyframes reveal {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+
+.highlight-line {
+  font-size: 20px;
+  margin-top: 18px;
+  letter-spacing: 0.5px;
+}
+
+.highlight-line::after {
+  content: "";
+  display: block;
+  width: 120px;
+  height: 2px;
+  margin: 12px auto 0;
+  background: rgba(255,255,255,0.6);
+}
+/* 🎬 Cinematic Blackout Intro */
+#cinemaIntro {
+  position: fixed;
+  inset: 0;
+  background: black;
+  z-index: 9999;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: white;
+  font-size: 24px;
+  letter-spacing: 1px;
+  text-align: center;
+
+  animation: fadeOutCinema 4s forwards;
+}
+
+@keyframes fadeOutCinema {
+  0% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+@keyframes sparkle {
+  from {
+    opacity: 1;
+    transform: scale(0);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.6);
+  }
+}
