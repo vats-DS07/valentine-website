@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>For Valentine ❤️</title>
+  <title>For NIYATI ❤️</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- 🎬 Cinematic Intro -->
 <div id="cinemaIntro">
-  <p>One moment changed everything… ❤️</p>
+ <p>In a world full of ordinary, there was one extraordinary girl… 💕❤️</p>
 </div>
 
 
@@ -22,9 +22,16 @@
 <button id="musicBtn">▶ Music</button>
 
 <h1>Hey Valentine! 💕</h1>
-<p>In another life, another universe… I’d still find you 🌌❤️</p>
-  <span id="favScene">If life were a movie, you’d be my favorite scene 🎬❤️</span> 
+
+
+<p>
+  In another life, another universe… I’d still find you 🌌❤️
+  <br>
+  <span id="favScene">
+    If life were a movie, you’d be my favorite scene 🎬❤️
+  </span>
 </p>
+
 
 
 
@@ -44,7 +51,11 @@
 <!-- Cat Video -->
 <div id="catPopup" class="overlay">
   <div class="box">
-    <iframe id="catFrame" allow="autoplay"></iframe>
+   <video id="catVideo" muted playsinline>
+  <source src="meme.mp4" type="video/mp4">
+</video>
+<p class="memeText">This is literally us 😭💖</p>
+
     <p>Okay… this is literally us now 😽💋</p>
   </div>
 </div>
@@ -54,12 +65,8 @@
   <div class="box letter" id="letterBox">
     <span id="closeLetter">❌</span>
 
-    <p>
-      Okay listen… 😌<br><br>
-      I wasn’t planning on falling for you… but here we are 😏<br><br>
-      You turned my ordinary days into my favorite ones ❤️<br><br>
-      I tease you a lot, but I’m serious about us 😉
-    </p>
+    <p id="loveText"></p>
+
 
     <p id="stillReading">Still reading? 😏</p>
     <p id="blushing">Caught you blushing 😌</p>
@@ -76,7 +83,7 @@
 
 </div>
 
-<script src="script.js"></script>
+
 
 <div class="floating-hearts"></div>
 
@@ -93,7 +100,10 @@
 
 <div id="sparkles"></div>
 
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
+
+<script src="script.js"></script>
 </body>
 </html>
 

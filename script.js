@@ -3,7 +3,8 @@ var yesBtn = document.getElementById("yesBtn");
 var noBtn = document.getElementById("noBtn");
 
 var catPopup = document.getElementById("catPopup");
-var catFrame = document.getElementById("catFrame");
+var catVideo = document.getElementById("catVideo");
+
 
 var letterPopup = document.getElementById("letterPopup");
 var ending = document.getElementById("ending");
@@ -16,21 +17,48 @@ var music = document.getElementById("bgMusic");
 var musicBtn = document.getElementById("musicBtn");
 
 // ===== FORCE HIDE EVERYTHING ON LOAD =====
-catPopup.style.display = "none";
-letterPopup.style.display = "none";
+;
+var loveText = document.getElementById("loveText");
+
+var message = `Okay listen… 😌
+
+I wasn’t planning on falling for you… but here we are 😏
+
+You turned my ordinary days into my favorite ones ❤️
+
+I tease you a lot, but I’m serious about us 😉`;
+
+
+
 ending.style.display = "none";
 
-// ===== MUSIC =====
-musicBtn.onclick = function () {
+musicBtn.addEventListener("click", function () {
   if (music.paused) {
-    music.play().catch(() => {});
-    music.volume = 0.4;
+
+    music.volume = 0;
+    music.play().then(() => {
+
+      let fade = setInterval(() => {
+        if (music.volume < 0.4) {
+          music.volume += 0.02;
+        } else {
+          clearInterval(fade);
+        }
+      }, 100);
+
+    }).catch(err => {
+      console.log("Playback blocked:", err);
+    });
+
     musicBtn.innerText = "⏸ Music";
+
   } else {
     music.pause();
     musicBtn.innerText = "▶ Music";
   }
-};
+});
+
+
 
 // ===== NO BUTTON (HOVER ESCAPE) =====
 noBtn.onmouseenter = function () {
@@ -38,24 +66,59 @@ noBtn.onmouseenter = function () {
   var maxX = parent.clientWidth - noBtn.offsetWidth;
   var maxY = parent.clientHeight - noBtn.offsetHeight;
 
-  noBtn.style.transition = "all 1.5s ease-out";
+  noBtn.style.transition = "all 0.5s ease-out";
   noBtn.style.left = Math.random() * maxX + "px";
   noBtn.style.top = Math.random() * maxY + "px";
 };
 
+function typeWriter(text, element, speed = 40) {
+  element.innerHTML = "";
+  let i = 0;
+
+  function typing() {
+    if (i < text.length) {
+      element.innerHTML += text.charAt(i);
+      i++;
+      setTimeout(typing, speed);
+    }
+  }
+
+  typing();
+}
+
 // ===== YES FLOW =====
 yesBtn.onclick = function () {
+
+  if (music.paused) {
+    music.play().catch(() => { });
+    musicBtn.innerText = "⏸ Music";
+  }
+
   // 1. Show cat video
-  catPopup.style.display = "flex";
-  catFrame.src =
-    "https://www.youtube.com/embed/laOirrx8NZg?autoplay=1&controls=0";
+  document.body.classList.add("cinema-mode");
+  document.body.classList.add("blur-bg");
+
+  catPopup.classList.add("active");
+
+  catVideo.currentTime = 0;
+  catVideo.play();
+
 
   // 2. After video → show letter
   setTimeout(function () {
-    catPopup.style.display = "none";
-    catFrame.src = "";
+    catVideo.pause();
+    catPopup.classList.remove("active");
 
-    letterPopup.style.display = "flex";
+    document.body.classList.remove("blur-bg");
+    document.body.classList.remove("cinema-mode");
+
+
+
+     letterPopup.classList.add("active");
+
+     typeWriter(message, loveText, 35);
+
+
 
     stillReading.style.display = "none";
     blushing.style.display = "none";
@@ -64,15 +127,44 @@ yesBtn.onclick = function () {
     setTimeout(() => blushing.style.display = "block", 5000);
   }, 4000);
 };
-
-// ===== CLOSE LETTER (CLICK ANYWHERE OUTSIDE) =====
+// ===== LETTER CLICK (ENDING) =====
 letterPopup.onclick = function (e) {
   if (e.target === letterPopup) {
-    letterPopup.style.display = "none";
+
+    letterPopup.classList.remove("active");
+
     ending.style.display = "flex";
     startTimer();
+
+    // 💥 Full Screen Confetti Rain
+    setTimeout(() => {
+
+      const duration = 3000;
+      const end = Date.now() + duration;
+
+      const interval = setInterval(() => {
+        confetti({
+          particleCount: 8,
+          spread: 140,
+          startVelocity: 35,
+          origin: {
+            x: Math.random(),   // random horizontal
+            y: 0               // start from top
+          }
+        });
+
+        if (Date.now() > end) {
+          clearInterval(interval);
+        }
+
+      }, 100);
+
+    }, 300);
   }
 };
+
+
+
 
 // ===== TIMER =====
 var targetDate = new Date("February 14, 2026 21:00:00").getTime();
